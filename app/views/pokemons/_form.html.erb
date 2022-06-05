@@ -1,6 +1,8 @@
-<%= bootstrap_form_with(model: pokemon) do |form| %>
-  <%= form.text_field :name %>
-  <%= form.number_field :pokedex_number %>
-  <%= form.number_field :total_base_stats %>
-  <%= form.primary %>
+<%= turbo_frame_tag pokemon do %>
+  <%= bootstrap_form_with(model: pokemon, data: { action: "turbo:submit-end->modal#close" }) do |form| %>
+    <%= form.text_field :name %>
+    <%= form.text_field :pokedex_number %>
+    <%= form.text_field :total_base_stats %>
+    <%= form.primary %>
+  <% end%>
 <% end %>

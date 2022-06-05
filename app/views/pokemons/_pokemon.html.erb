@@ -1,17 +1,19 @@
-<div class="row py-2 border-top">
-  <div class="col-3 my-auto">
-    <%= pokemon.name %>
-  </div>
-  <div class="col-3 my-auto">
-    <%= pokemon.pokedex_number %>
-  </div>
-  <div class="col-3 my-auto">
-    <%= pokemon.total_base_stats %>
-  </div>
-  <div class="col-3">
-    <div class="d-flex justify-content-end">
-      <%= link_to "編集", edit_pokemon_path(pokemon), class: "btn btn-sm btn-outline-primary me-2" %>
-      <%= button_to "削除", pokemon, method: :delete, class: "btn btn-sm btn-outline-danger" %>
+<%= turbo_frame_tag pokemon do %>
+  <div class="row py-2 border-top">
+    <div class="col-3 my-auto">
+      <%= pokemon.name %>
+    </div>
+    <div class="col-3 my-auto">
+      <%= pokemon.pokedex_number %>
+    </div>
+    <div class="col-3 my-auto">
+      <%= pokemon.total_base_stats %>
+    </div>
+    <div class="col-3">
+      <div class="d-flex justify-content-end">
+        <%= link_to "編集", edit_pokemon_path(pokemon), class: "btn btn-sm btn-outline-primary me-2", data: { turbo_frame: "modal" } %>
+        <%= button_to "削除", pokemon, method: :delete, class: "btn btn-sm btn-outline-danger", form: { data: { turbo_confirm: "本当に削除しますか？" } } %>
+      </div>
     </div>
   </div>
-</div>
+<% end %>

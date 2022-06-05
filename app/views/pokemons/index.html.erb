@@ -10,7 +10,16 @@
   </div>
 
   <div class="card-body">
-    <%= search_form_for @search do |f| %>
+    <%= search_form_for(
+      @search,
+      html: {
+        data: {
+          turbo_frame: "pokemons-list",
+          controller: "form",
+          action: "input->form#submit"
+        }
+      }) do |f|
+     %>
       <div class="row g3 mb-3">
         <div class="col-3 col-xl-2">
           <%= f.label :name_cont, "名前", class: "form-label" %>
@@ -25,7 +34,6 @@
           <%= f.search_field :total_base_stats_eq, class: "form-control" %>
         </div>
         <div class="col-3 d-flex align-items-end">
-          <%= button_tag(icon_with_text("search", "検索"), class: "btn btn-primary me-1") %>
           <%= link_to "リセット", pokemons_path, class: "btn btn-outline-secondary" %>
         </div>
       </div>
@@ -40,28 +48,32 @@
   </div>
 
   <div class="card-body mx-3">
-    <div class="row py-2">
-      <div class="col-3 mt-auto">
-        <%= sort_link(@search, :name) %>
+    <%= turbo_frame_tag "pokemons-list", data: { turbo_action: :advance } do %>
+      <div class="row py-2">
+        <div class="col-3 mt-auto">
+          <%= sort_link(@search, :name) %>
+        </div>
+        <div class="col-3 mt-auto">
+          <%= sort_link(@search, :pokedex_number) %>
+        </div>
+        <div class="col-3 mt-auto">
+          <%= sort_link(@search, :total_base_stats) %>
+        </div>
+        <div class="col-3 d-flex justify-content-end">
+          <%= link_to icon_with_text("plus-circle", "登録"),
+                      new_pokemon_path,
+                      class: "btn btn-outline-primary",
+                      data: { turbo_frame: "modal" }
+          %>
+        </div>
       </div>
-      <div class="col-3 mt-auto">
-        <%= sort_link(@search, :pokedex_number) %>
-      </div>
-      <div class="col-3 mt-auto">
-        <%= sort_link(@search, :total_base_stats) %>
-      </div>
-      <div class="col-3 d-flex justify-content-end">
-        <%= link_to icon_with_text("plus-circle", "登録"),
-                    new_pokemon_path,
-                    class: "btn btn-outline-primary"
-        %>
-      </div>
-    </div>
 
-    <%= render @pokemons %>
-
-    <div class="d-flex justify-content-end mt-3">
-      <%= paginate @pokemons %>
-    </div>
+      <div id="pokemons">
+        <%= turbo_frame_tag "pokemons-page-#{@pokemons.current_page}" do %>
+          <%= render @pokemons %>
+          <%= turbo_frame_tag "pokemons-page-#{@pokemons.next_page}", loading: :lazy, src: path_to_next_page(@pokemons) %>
+        <% end %>
+      </div>
+    <% end %>
   </div>
 </div>
