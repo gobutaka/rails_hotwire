@@ -1,22 +1,10 @@
-<div id="<%= dom_id @pokemon %>">
-  <p>
-    <strong>名前:</strong>
-    <%= @pokemon.name %>
-  </p>
+<p style="color: green"><%= notice %></p>
 
-  <p>
-    <strong>図鑑No.:</strong>
-    <%= @pokemon.pokedex_number %>
-  </p>
-
-  <p>
-    <strong>合計種族値:</strong>
-    <%= @pokemon.total_base_stats %>
-  </p>
-</div>
+<%= render @pokemon %>
 
 <div>
-  <%= link_to "編集", edit_pokemon_path(@pokemon) %> |
-  <%= link_to "戻る", pokemons_path %>
-  <%= button_to "削除", @pokemon, method: :delete %>
+  <%= link_to "Edit this pokemon", edit_pokemon_path(@pokemon) %> |
+  <%= link_to "Back to pokemons", pokemons_path %>
+
+  <%= button_to "Destroy this pokemon", @pokemon, method: :delete %>
 </div>

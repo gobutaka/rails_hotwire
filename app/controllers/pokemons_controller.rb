@@ -20,7 +20,7 @@ class PokemonsController < ApplicationController
     @pokemon = Pokemon.new(pokemon_params)
 
     if @pokemon.save
-      redirect_to @pokemon, notice: "ポケモンを登録しました"
+      flash.now.notice = "ポケモンを登録しました"
     else
       render :new, status: :unprocessable_entity
     end
@@ -28,7 +28,7 @@ class PokemonsController < ApplicationController
 
   def update
     if @pokemon.update(pokemon_params)
-      redirect_to @pokemon, notice: "ポケモンを更新しました"
+      flash.now.notice = "ポケモンを更新しました"
     else
       render :edit, status: :unprocessable_entity
     end
@@ -36,7 +36,7 @@ class PokemonsController < ApplicationController
 
   def destroy
     @pokemon.destroy
-    redirect_to pokemons_url, notice: "ポケモンを削除しました"
+    flash.now.notice = "ポケモンを削除しました"
   end
 
   private
