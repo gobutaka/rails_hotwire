@@ -1,0 +1,9 @@
+ja:
+  activerecord:
+    models:
+      pokemon: ポケモン
+    attributes:
+      pokemon:
+        name: 名前
+        pokedex_number: 図鑑No.
+        total_base_stats: 合計種族値
