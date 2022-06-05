@@ -1,5 +1,6 @@
-<%= bootstrap_form_with(model: cat) do |form| %>
+<%= bootstrap_form_with(model: pokemon) do |form| %>
   <%= form.text_field :name %>
-  <%= form.number_field :age %>
+  <%= form.number_field :pokedex_number %>
+  <%= form.number_field :total_base_stats %>
   <%= form.primary %>
 <% end %>
